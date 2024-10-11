@@ -1,0 +1,16 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'tiendacalcal/css/styles.css' %}">
+
+<h1>¡Gracias por tu compra!</h1>
+<p>Tu pedido ha sido procesado correctamente.</p>
+<p>Número de pedido: {{ pedido.id }}</p>
+<p>Total pagado: ${{ pedido.total }}</p>
+
+<h2>Detalles del pedido:</h2>
+<ul>
+    {% for item in pedido.items.all %}
+        <li>{{ item.producto.nombre }} (x{{ item.cantidad }}) - ${{ item.precio }}</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'lista_productos' %}">Volver a la tienda</a>

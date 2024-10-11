@@ -1,0 +1,20 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'tiendacalcal/css/styles.css' %}">
+
+<h1>Historial de Pedidos</h1>
+{% if pedidos %}
+    <ul>
+        {% for pedido in pedidos %}
+            <li>
+                Pedido #{{ pedido.id }} - {{ pedido.fecha }} - Total: ${{ pedido.total }}
+                <ul>
+                    {% for item in pedido.items.all %}
+                        <li>{{ item.producto.nombre }} (x{{ item.cantidad }}) - ${{ item.precio }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No tienes pedidos aún.</p>
+{% endif %}

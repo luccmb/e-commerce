@@ -1,0 +1,53 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'tiendacalcal/css/styles.css' %}">
+
+{% extends 'tiendacalcal/base.html' %}
+
+{% block title %}Lista de Productos{% endblock %}
+
+{% block content %}
+<h2>Productos Disponibles</h2>
+<div class="productos">
+    {% for producto in productos %}
+    <div class="producto">
+        <h3>{{ producto.nombre }}</h3>
+        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+        <p>Precio: {{ producto.precio }}€</p>
+        <a href="{% url 'detalle_producto' producto.id %}">Ver Detalles</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if productos.has_previous %}
+            <a href="?page=1">&laquo; primera</a>
+            <a href="?page={{ productos.previous_page_number }}">anterior</a>
+        {% endif %}
+        
+        <span class="current">
+            Página {{ productos.number }} de {{ productos.paginator.num_pages }}
+        </span>
+        
+        {% if productos.has_next %}
+            <a href="?page={{ productos.next_page_number }}">siguiente</a>
+            <a href="?page={{ productos.paginator.num_pages }}">última &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+<h3>Categorías</h3>
+<ul>
+    {% for categoria in categorias %}
+        <li>
+            <a href="{% url 'filtrar_por_categoria' categoria.id %}">{{ categoria.nombre }}</a>
+        </li>
+    {% endfor %}
+</ul>
+
+
+<form method="get" action="{% url 'buscar_productos' %}">
+    <input type="text" name="q" placeholder="Buscar productos">
+    <button type="submit">Buscar</button>
+</form>

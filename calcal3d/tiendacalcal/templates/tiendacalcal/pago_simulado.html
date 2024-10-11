@@ -1,0 +1,10 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'tiendacalcal/css/styles.css' %}">
+
+<h1>Pagar Pedido #{{ pedido.id }}</h1>
+<p>Total a pagar: ${{ pedido.total }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Pagar ahora</button>
+</form>

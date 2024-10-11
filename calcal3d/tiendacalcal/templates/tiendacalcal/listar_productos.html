@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'tiendacalcal/templates/tiendacalcal/styles.css' %}">
+    <title>Listado de Productos</title>
+</head>
+<body>
+    <h1>Listado de Productos</h1>
+    <ul>
+        {% for producto in productos %}
+            <li>
+                <strong>{{ producto.nombre }}</strong><br>
+                {{ producto.descripcion }}<br>
+                Precio: ${{ producto.precio }}<br>
+                Stock: {{ producto.stock }}<br>
+                Categoría: {{ producto.categoria.nombre }}<br>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

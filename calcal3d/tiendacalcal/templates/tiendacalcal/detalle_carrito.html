@@ -1,0 +1,18 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'tiendacalcal/css/styles.css' %}">
+<h1>Tu Carrito</h1>
+<form method="post" action="{% url 'actualizar_cantidad_carrito' item.id %}">
+    {% csrf_token %}
+    <ul>
+        {% for item in items %}
+            <li>
+                <input type="number" name="cantidad" value="{{ item.cantidad }}" min="1">
+                {{ item.producto.nombre }} - ${{ item.producto.precio }}
+                <button type="submit">Actualizar</button>
+                <a href="{% url 'eliminar_del_carrito' item.id %}">Eliminar</a>
+            </li>
+        {% endfor %}
+    </ul>
+</form>
+<p>Total: ${{ total }}</p>
+<a href="{% url 'procesar_pedido' %}">Procesar Pedido</a>
